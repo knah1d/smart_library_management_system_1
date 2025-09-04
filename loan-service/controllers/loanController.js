@@ -79,7 +79,14 @@ export const createLoan = async (req, res) => {
                     "Service temporarily unavailable, please try again later",
             });
         }
-        res.status(500).json({ message: error.message });
+        // Handle book availability specific errors
+        if (
+            error.message.includes("Book is not available for loan") ||
+            error.message.includes("No available copies")
+        ) {
+            return res.status(400).json({ message: error.message });
+        }
+        res.status(500).json({ message: "Internal server error" });
     }
 };
 

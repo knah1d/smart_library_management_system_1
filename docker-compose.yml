@@ -36,6 +36,7 @@ services:
         environment:
             MONGODB_URI: mongodb://user-db:27017/smart_library_users
             NODE_ENV: development
+            PORT: 8081
         depends_on:
             - user-db
         networks:
@@ -47,6 +48,7 @@ services:
         environment:
             MONGODB_URI: mongodb://book-db:27017/smart_library_books
             NODE_ENV: development
+            PORT: 8082
         depends_on:
             - book-db
         networks:
@@ -60,6 +62,7 @@ services:
             BOOK_SERVICE_URL: http://book-service:8082/api
             NODE_ENV: development
             MONGODB_URI: mongodb://loan-db:27017/smart_library_loans
+            PORT: 8083
         depends_on:
             - user-service
             - book-service
@@ -72,7 +75,7 @@ services:
         ports:
             - "80:80"
         volumes:
-            - ./nginx/smart-library.conf:/etc/nginx/conf.d/default.conf:ro
+            - ./nginx/smart-library.conf:/etc/nginx/conf.d/default.conf
         depends_on:
             - user-service
             - book-service

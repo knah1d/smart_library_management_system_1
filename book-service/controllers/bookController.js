@@ -388,7 +388,7 @@ export const updateBookAvailability = async (req, res) => {
             if (book.availableCopies <= 0) {
                 return res
                     .status(400)
-                    .json({ message: "No available copies to decrease" });
+                    .json({ message: "Book is not available for loan" });
             }
             book.availableCopies -= 1;
         } else {
